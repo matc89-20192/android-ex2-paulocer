@@ -9,7 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class OutraActivity extends AppCompatActivity {
-    private EditText editText;
+    public EditText editText;
     private TextView labelMensagem;
     public String nomeAlterado;
     private Button btnConfirmar;
@@ -21,12 +21,12 @@ public class OutraActivity extends AppCompatActivity {
         setContentView(R.layout.activity_outra);
 
         labelMensagem = (TextView)findViewById(R.id.editText);
+        final EditText editText = (EditText)findViewById(R.id.editText);
         btnConfirmar = (Button)findViewById(R.id.btnConfirmar);
         btnConfirmar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                EditText editText = (EditText)findViewById(R.id.editText);
-                // TextView nomeAlterado = (TextView)findViewById(R.id.editText);
+
                 String nome = editText.getText().toString();
                 Intent data = new Intent();
                 data.putExtra("nomeAlterado", nome);
@@ -39,6 +39,8 @@ public class OutraActivity extends AppCompatActivity {
         btnCancelar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent data = new Intent();
+                setResult(RESULT_CANCELED, data);
                 finish();
             }
         });

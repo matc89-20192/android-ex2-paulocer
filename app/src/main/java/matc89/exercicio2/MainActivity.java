@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    public String nome = "";
+//    public String nome;
     public Intent data;
     private TextView textView;
     private Button btnTrocar;
@@ -26,18 +26,20 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent = new Intent(MainActivity.this, OutraActivity.class);
                 startActivityForResult(intent, 1234);
             }
-            protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-                if (requestCode == 1234 && resultCode == RESULT_OK)
-                {
-                    String nome = data.getStringExtra("nomeAlterado");
-                    CharSequence texto = String.format("Oi, %s!", nome);
-                    textView.setText(texto);
-                }
-            }
-
-
         });
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1234 && resultCode == RESULT_OK)
+        {
+            String nome = data.getStringExtra("nomeAlterado");
+            CharSequence texto = String.format("Oi, %s!", nome);
+            textView.setText(texto);
+        }
+    }
+
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);

@@ -3,12 +3,13 @@ package matc89.exercicio2;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-//    public String nome;
+    public String nome;
     public Intent data;
     private TextView textView;
     private Button btnTrocar;
@@ -24,6 +25,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(MainActivity.this, OutraActivity.class);
+                intent.putExtra("usuarioAtual", nome);
                 startActivityForResult(intent, 1234);
             }
         });
@@ -35,8 +37,13 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1234 && resultCode == RESULT_OK)
         {
             String nome = data.getStringExtra("nomeAlterado");
-            CharSequence texto = String.format("Oi, %s!", nome);
-            textView.setText(texto);
+            if (TextUtils.isEmpty(data.getStringExtra("nomeAlterado").toString())){
+                textView.setText("Oi!");
+            }
+            else{
+                CharSequence texto = String.format("Oi, %s!", nome);
+                textView.setText(texto);
+            }
         }
     }
 
